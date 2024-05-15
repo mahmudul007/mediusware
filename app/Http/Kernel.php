@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
         ],
         'admin' => [
             'auth',
-            'permission:special_access',
+            'permission:transaction_approve',
         ],
     ];
 
