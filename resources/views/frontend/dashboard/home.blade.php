@@ -24,6 +24,9 @@
                         <a href="{{route('all.transaction')}}">
                             <button type="button" class="btn btn-primary"> All of My transactions and balance </button>
                         </a>
+                        <a href="{{route('showWithdrawals')}}">
+                            <button type="button" class="btn btn-primary"> showWithdrawals </button>
+                        </a>
                         @can('transaction_approve')
                         <a href="{{route('all.viewAllPendingTransaction')}}">
                             <button type="button" class="btn btn-primary"> View all Pending transaction </button>
@@ -33,9 +36,10 @@
                         <hr>
                         
                         @can('transaction_approve')
-                        <a href="{{route('store.user')}}">
+                        <a href="{{route('create.user')}}">
                             <button type="button" class="btn btn-primary"> User create </button>
                         </a>
+                       
                         @endcan
                      
 

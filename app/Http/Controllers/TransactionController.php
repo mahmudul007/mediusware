@@ -112,11 +112,14 @@ class TransactionController extends Controller
     
         // Determine the withdrawal rate based on account type
         $withdrawalRate = $user->account_type === '0' ? 0.015 : 0.025;
+        
+
     
         // Apply free withdrawal conditions for Individual accounts
         if ($user->account_type === '0') {
             $dayOfWeek = now()->dayOfWeek;
-            $remainingFreeWithdrawalsThisMonth = max(0, 5 - Transaction::where('user_id', $user->id)
+            $remainingFreeWithdrawalsThisMonth = max(0, 5 - 
+            Transaction::where('user_id', $user->id)
                 ->where('transaction_type', 0)
                 ->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
@@ -128,6 +131,7 @@ class TransactionController extends Controller
                 $withdrawalRate = 0; // Free withdrawal conditions apply
             }
         }
+       
     
         // Apply the appropriate withdrawal fee
         $withdrawalFee = $request->amount * $withdrawalRate;
@@ -141,9 +145,10 @@ class TransactionController extends Controller
             // Create a withdrawal transaction record
             Transaction::create([
                 'user_id' => $user->id,
-                'transaction_type' => 'withdrawal',
+                'transaction_type' => '1',
                 'amount' => $request->amount,
                 'fee' => $withdrawalFee,
+                'status'=>'withdraw'
             ]);
     
             // Redirect to the withdrawals page
@@ -162,7 +167,9 @@ class TransactionController extends Controller
     public function showWithdrawals()
     {
     
-        $withdrawals = Transaction::where('type', 'withdrawal')->where('user_id',Auth::user()->id)->get();
-       return view('frontend.witdraw.index', $withdrawals);
+        $transactions = Transaction::where('transaction_type', '1')->where('user_id',Auth::user()->id)->get();
+
+       return view('frontend.witdraw.index', [
+        'transactions' => $transactions]);
     }
 }
