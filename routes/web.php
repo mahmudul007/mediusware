@@ -36,10 +36,11 @@ Route::get('/show/withdrawal/money',[TransactionController::class, 'showWithdraw
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::group(['middleware' => 'admin'], function () {
-
-    Route::post('/store/user',[UserController::class, 'create'])->name('store.user');
+Route::post('/store/user',[UserController::class, 'create'])->name('store.user');
     Route::post('/transaction/{transactionId}/status',[TransactionController::class, 'updateStatus'] )->name('updateTransactionStatus');
     Route::get('/all/viewAllPendingTransaction',[TransactionController::class, 'viewAllPendingTransaction'])->name('all.viewAllPendingTransaction');
 
-});
+// Route::group(['middleware' => 'admin'], function () {
+
+    
+// });

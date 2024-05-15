@@ -6,6 +6,8 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Gate;
+
 class TransactionController extends Controller
 {
    
@@ -40,6 +42,10 @@ class TransactionController extends Controller
 
     public function updateStatus(Request $request, $transactionId)
     {
+         if (!Gate::allows('transaction_approve')) {
+        abort(403);
+    }
+      
        
         $transaction = Transaction::findOrFail($transactionId);
     
@@ -80,6 +86,9 @@ class TransactionController extends Controller
 
     }
     public function viewAllPendingTransaction(){
+        if (!Gate::allows('transaction_approve')) {
+            abort(403);
+        }
         $transactions = Transaction::where('status','pending')->get();
         return view('frontend.transactionapprovelist.index', [
             'transactions' => $transactions]);
