@@ -7,7 +7,7 @@
                 <div class="card">
                     <h1>Home</h1>
                     
-                    <p> make from when you login as admin </p>
+                    <p> make user when you login as admin /also have register login</p>
                     <p> you can see all approval of desposit </p>
                     <p>in user mode you can deposit / withdraw/ see your deposit amount</p>
                     <p>username for admin : admin@gmail.com <br>
